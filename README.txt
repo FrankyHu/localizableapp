@@ -1,0 +1,2 @@
+LocalizableApp Project starts here
+
