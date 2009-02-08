@@ -14,8 +14,9 @@
 	NSMutableArray *_LFLSTRlist;
 	NSMutableArray *_LFLSTR2list;
 	NSMutableArray *_Displaylist;
-	
-
 }
--(void) parse:(NSString *)filePath;
+- (void)parse:(NSString *)filePath;
+- (IBAction)openFile:(id)sender;
+- (IBAction)saveFile:(id)sender;
+
 @end

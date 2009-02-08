@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		681F917B0F397EC700A2F603 /* LFMyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 681F917A0F397EC700A2F603 /* LFMyController.m */; };
+		681F95C30F3F16DD00A2F603 /* MyController+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 681F95C20F3F16DD00A2F603 /* MyController+TableViewDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -25,6 +26,8 @@
 		32CA4F630368D1EE00C91783 /* firstApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = firstApp_Prefix.pch; sourceTree = "<group>"; };
 		681F91790F397EC700A2F603 /* LFMyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFMyController.h; sourceTree = "<group>"; };
 		681F917A0F397EC700A2F603 /* LFMyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFMyController.m; sourceTree = "<group>"; wrapsLines = 1; };
+		681F95C10F3F16DD00A2F603 /* MyController+TableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyController+TableViewDelegate.h"; sourceTree = "<group>"; };
+		681F95C20F3F16DD00A2F603 /* MyController+TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MyController+TableViewDelegate.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* firstApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = firstApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -45,6 +48,8 @@
 			isa = PBXGroup;
 			children = (
 				681F91790F397EC700A2F603 /* LFMyController.h */,
+				681F95C10F3F16DD00A2F603 /* MyController+TableViewDelegate.h */,
+				681F95C20F3F16DD00A2F603 /* MyController+TableViewDelegate.m */,
 				681F917A0F397EC700A2F603 /* LFMyController.m */,
 			);
 			name = Classes;
@@ -173,6 +178,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				681F917B0F397EC700A2F603 /* LFMyController.m in Sources */,
+				681F95C30F3F16DD00A2F603 /* MyController+TableViewDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
