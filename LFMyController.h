@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface LFMyController : NSWindowController {
+@interface LFMyController : NSWindowController 
+{
 	IBOutlet NSTableView *_view;
 	NSMutableArray *_LFLSTRlist;
 	NSMutableArray *_LFLSTR2list;
-	NSMutableArray *_Displaylist;
+	NSMutableArray *_displaylist;
 }
 - (void)parse:(NSString *)filePath;
 - (IBAction)openFile:(id)sender;

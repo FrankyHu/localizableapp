@@ -11,19 +11,19 @@
 
 @implementation LFMyController
 
-- (void) dealloc
+- (void)dealloc
 {
 	[_LFLSTRlist release];
 	[_LFLSTR2list release];
-	[_Displaylist release];
+	[_displaylist release];
 	[super dealloc];
 }
 
--(void) parse:(NSString *)filePath
+-(void)parse:(NSString *)filePath
 {
 	_LFLSTRlist = [NSMutableArray new];
 	_LFLSTR2list = [NSMutableArray new];
-	_Displaylist = [NSMutableArray new];
+	_displaylist = [NSMutableArray new];
 	NSMutableArray * array = [NSMutableArray new];
 	NSString *file;
 	NSString *path;
@@ -63,12 +63,12 @@
 								[param appendFormat:@"%C",[s characterAtIndex:(i+j)]];
 							}
 							i += j;
-							NSMutableArray *COL = [NSMutableArray new];
-							[COL addObject:param];
-							[COL addObject:param];
-							[COL addObject:@""];
-							[COL addObject:file];
-							[_Displaylist addObject:COL];
+							NSMutableArray *col = [NSMutableArray new];
+							[col addObject:param];
+							[col addObject:param];
+							[col addObject:@""];
+							[col addObject:file];
+							[_displaylist addObject:col];
 						}
 					}
 				}
@@ -104,12 +104,12 @@
 								[param2 appendFormat:@"%C",[s characterAtIndex:(i+j)]];
 							}
 							i = i + j;
-							NSMutableArray *COL = [NSMutableArray new];
-							[COL addObject:param1];
-							[COL addObject:param1];
-							[COL addObject:param2];
-							[COL addObject:file];
-							[_Displaylist addObject:COL];
+							NSMutableArray *col = [NSMutableArray new];
+							[col addObject:param1];
+							[col addObject:param1];
+							[col addObject:param2];
+							[col addObject:file];
+							[_displaylist addObject:col];
 							
 						}
 					}
@@ -118,21 +118,21 @@
 			}
 		}
 	}
-	for (i = 0; i < [_Displaylist count]; i++) {
-		for (j = 0; j < [_Displaylist count]; j++) {
+	for (i = 0; i < [_displaylist count]; i++) {
+		for (j = 0; j < [_displaylist count]; j++) {
 			if (i != j) {
-				if ( [[[_Displaylist objectAtIndex:i] objectAtIndex:0] isEqualToString:[[_Displaylist objectAtIndex:j] objectAtIndex:0]] ) {
-					[[_Displaylist objectAtIndex:i] addObject:@"isRepeat"];
+				if ( [[[_displaylist objectAtIndex:i] objectAtIndex:0] isEqualToString:[[_displaylist objectAtIndex:j] objectAtIndex:0]] ) {
+					[[_displaylist objectAtIndex:i] addObject:@"isRepeat"];
 				}
 			} else {
-				[[_Displaylist objectAtIndex:i] addObject:@"notRepeat"];
+				[[_displaylist objectAtIndex:i] addObject:@"notRepeat"];
 			}
 		}
 	}
-	for (i = 0; i < [_Displaylist count]; i++) {
+	for (i = 0; i < [_displaylist count]; i++) {
 		
-		if( [[_Displaylist objectAtIndex:i] count] == 4 ) {
-			[[_Displaylist objectAtIndex:i] addObject:@"notRepeat"];
+		if( [[_displaylist objectAtIndex:i] count] == 4 ) {
+			[[_displaylist objectAtIndex:i] addObject:@"notRepeat"];
 		}
 	}
 	
@@ -161,7 +161,7 @@
 	if (result == NSOKButton){
 		NSString *_selectedFile = [save filename];
 		NSMutableString *writer = [NSMutableString new];
-		for (id x in _Displaylist) {
+		for (id x in _displaylist) {
 			if ([[x objectAtIndex:4] isEqualToString:@"isRepeat"]) {
 				[writer appendString:@"/*"];
 			}
@@ -199,26 +199,26 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	return ([_Displaylist count]);
+	return ([_displaylist count]);
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
 	NSString *columnName = [aTableColumn identifier];
 	if ( [columnName isEqualToString:@"col1"] ) {
-		return [[_Displaylist objectAtIndex:rowIndex] objectAtIndex:0];
+		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:0];
 	}
 	else if ( [columnName isEqualToString:@"col2"] ) {
-		return [[_Displaylist objectAtIndex:rowIndex] objectAtIndex:1];
+		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:1];
 	}
 	else if ( [columnName isEqualToString:@"col3"] ) {
-		return [[_Displaylist objectAtIndex:rowIndex] objectAtIndex:2];
+		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:2];
 	}
 	else if ( [columnName isEqualToString:@"col4"] ) {
-		return [[_Displaylist objectAtIndex:rowIndex] objectAtIndex:3];
+		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:3];
 	}
 	else if ( [columnName isEqualToString:@"col5"] ) {
-		if ([[[_Displaylist objectAtIndex:rowIndex] objectAtIndex:4]isEqualToString:@"isRepeat"]) {
+		if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:4]isEqualToString:@"isRepeat"]) {
 			return @"Repeat";
 		}
 		else {
@@ -234,11 +234,11 @@
 {
 	NSString *columnName = [aTableColumn identifier];
 	if ( [columnName isEqualToString:@"col1"] ) {
-		[[_Displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:0 withObject:anObject];
+		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:0 withObject:anObject];
 	}else if ( [columnName isEqualToString:@"col2"] ) {
-		[[_Displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:1 withObject:anObject];
+		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:1 withObject:anObject];
 	}else if ( [columnName isEqualToString:@"col3"] ) {
-		[[_Displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:2 withObject:anObject];
+		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:2 withObject:anObject];
 	}
 }
 
