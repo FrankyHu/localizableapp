@@ -60,7 +60,7 @@
 			[writer appendString:@" = "];
 			[writer appendString:@"\""];
 			[writer appendString:[x objectAtIndex:1]];
-			[writer appendString:@"\""];
+			[writer appendString:@"\";"];
 			if ([[x objectAtIndex:4] isEqualToString:@"isRepeat"]) {
 				[writer appendString:@"*/"];
 			}
