@@ -7,137 +7,19 @@
 //
 
 #import "LFMyController.h"
-#import "MyController+TableViewDelegate.h"
+#import "LFMyController+TableViewDelegate.h"
+#import "LFPopup.h"
+#import "LFMyController+ParserDelegate.h"
 
 @implementation LFMyController
 
 - (void)dealloc
 {
-	[_LFLSTRlist release];
-	[_LFLSTR2list release];
+	[_langArray release];
 	[_displaylist release];
 	[super dealloc];
 }
 
--(void)parse:(NSString *)filePath
-{
-	_LFLSTRlist = [NSMutableArray new];
-	_LFLSTR2list = [NSMutableArray new];
-	_displaylist = [NSMutableArray new];
-	NSMutableArray * array = [NSMutableArray new];
-	NSString *file;
-	NSString *path;
-	NSString *aStr;
-	NSString *searchForLFLSTR = @"LFLSTR";
-	NSString *searchForLFLSTR2 = @"LFLSTR2";
-	const NSString *s;
-	int i, j;
-	BOOL end = NO;
-	//Pass 1: Scan for macro LFLSTR in project directory
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:filePath];
-	while (file = [dirEnum nextObject]) {
-		if ([[file pathExtension] isEqualToString: @"m"]) {
-			path = [filePath stringByAppendingPathComponent:file];
-			aStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-			NSRange rangeForLFLSTR = [aStr rangeOfString : searchForLFLSTR];
-			NSRange rangeForLFLSTR2 = [aStr rangeOfString : searchForLFLSTR2];
-			if ( (rangeForLFLSTR.location != NSNotFound) || (rangeForLFLSTR2.location != NSNotFound) ) {
-				[array addObject:path];
-				//insert here
-				s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-				//Looking for LFLSTR
-				for (i = 0 ;i < [s length] ;i++ ) {
-					if ([s characterAtIndex:i] == 'L') {
-						if((i + 6) < [s length] && [[s substringWithRange:NSMakeRange(i, 9)] isEqualToString:@"LFLSTR(@\""]) {
-							NSMutableString *param = [NSMutableString string];
-							i += 9;
-							end = NO;
-							for (j = 0; !end; j++){
-								if (i + j >= [s length]) {
-									break;
-								}
-								if ([s characterAtIndex:(i+j)] == '"' && [s characterAtIndex:(i+j-1)] != '\\' ) {
-									end = YES;
-									continue;
-								}
-								[param appendFormat:@"%C",[s characterAtIndex:(i+j)]];
-							}
-							i += j;
-							NSMutableArray *col = [NSMutableArray new];
-							[col addObject:param];
-							[col addObject:param];
-							[col addObject:@""];
-							[col addObject:file];
-							[_displaylist addObject:col];
-						}
-					}
-				}
-				//Looking for LFLSTR2
-				for (i = 0 ;i < [s length] ;i++ ) {
-					if ([s characterAtIndex:i] == 'L'){
-						if((i + 7) < [s length] && [[s substringWithRange:NSMakeRange(i, 10)] isEqualToString:@"LFLSTR2(@\""]) {
-							NSMutableString *param1 = [NSMutableString string];
-							NSMutableString *param2 = [NSMutableString string];
-							i += 10;
-							end = NO;
-							for (j = 0; !end; j++){
-								if (i + j >= [s length]) {
-									break;
-								}
-								if ([s characterAtIndex:(i+j)] == '"' && [s characterAtIndex:(i+j-1)] != '\\' ) {
-									end = YES;
-									continue;
-								}
-								[param1 appendFormat:@"%C",[s characterAtIndex:(i+j)]];
-							}
-							i = i + j + 3;
-							end = NO;
-							//',' '@' '"'
-							for (j = 0; !end; j++) {
-								if (i + j >= [s length]) {
-									break;
-								}
-								if ([s characterAtIndex:(i+j)] == '"' && [s characterAtIndex:(i+j-1)] != '\\' ) {
-									end = YES;
-									continue;
-								}
-								[param2 appendFormat:@"%C",[s characterAtIndex:(i+j)]];
-							}
-							i = i + j;
-							NSMutableArray *col = [NSMutableArray new];
-							[col addObject:param1];
-							[col addObject:param1];
-							[col addObject:param2];
-							[col addObject:file];
-							[_displaylist addObject:col];
-							
-						}
-					}
-				}				
-				//end
-			}
-		}
-	}
-	for (i = 0; i < [_displaylist count]; i++) {
-		for (j = 0; j < [_displaylist count]; j++) {
-			if (i != j) {
-				if ( [[[_displaylist objectAtIndex:i] objectAtIndex:0] isEqualToString:[[_displaylist objectAtIndex:j] objectAtIndex:0]] ) {
-					[[_displaylist objectAtIndex:i] addObject:@"isRepeat"];
-				}
-			} else {
-				[[_displaylist objectAtIndex:i] addObject:@"notRepeat"];
-			}
-		}
-	}
-	for (i = 0; i < [_displaylist count]; i++) {
-		
-		if( [[_displaylist objectAtIndex:i] count] == 4 ) {
-			[[_displaylist objectAtIndex:i] addObject:@"notRepeat"];
-		}
-	}
-	
-	[_view reloadData];
-}
 
 - (IBAction)openFile:(id)sender
 {
@@ -147,19 +29,26 @@
 	[_panel setCanChooseFiles:NO];
 	int result = [_panel runModal];
 	if (result == NSOKButton){
-		NSString *_selectedFile = [_panel filename];
+		_selectedDirectory = [NSMutableString new];
+		[_selectedDirectory appendString:[_panel filename]];
 		//Read LFLSTR & LFLSTR2 to arrays
-		[self parse:_selectedFile];
+		[self parse:_selectedDirectory];
 	}
 }
 
 - (IBAction)saveFile:(id)sender
 {
-	NSSavePanel *save = [NSSavePanel savePanel];
-	//Optional : Add Code here to change NSSavePanel basic configuration
-	int result = [save runModal];
-	if (result == NSOKButton){
-		NSString *_selectedFile = [save filename];
+	if (![_selectedDirectory isEqualToString:@"~/"]) {
+		NSMutableString *_selectedFile = [NSMutableString new];
+		NSFileManager *_manager = [NSFileManager new];
+		[_selectedFile appendString:_selectedDirectory] ;
+		[_selectedFile appendString:@"/"];
+		[_selectedFile appendString:_selectedLang];
+		[_selectedFile appendString:@".lproj"];
+		[_manager createDirectoryAtPath:_selectedFile withIntermediateDirectories:YES attributes:nil error:nil];
+		//NSLog(_selectedFile);
+		[_selectedFile appendString:@"/Localizable.strings"];
+		//NSLog(_selectedFile);
 		NSMutableString *writer = [NSMutableString new];
 		for (id x in _displaylist) {
 			if ([[x objectAtIndex:4] isEqualToString:@"isRepeat"]) {
@@ -186,60 +75,56 @@
 			[writer appendString:@"\n"];
 		}
 		[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
+		NSAlert *_alert = [NSAlert alertWithMessageText:@"Done" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"File saved!"];;
+		[_alert runModal];
+		_selectedFile = nil;
 	}
+	else {
+		NSAlert *_alert = [NSAlert alertWithMessageText:@"Error" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"Please open a directory first."];;
+		[_alert runModal];
+	}
+}
+
+- (IBAction)showLang:(id)sender
+{
+	NSMenuItem *index = [(NSPopUpButton *)sender selectedItem];
+	_selectedLang = [NSMutableString new];
+	[_selectedLang appendString: [index title]];
+	[currentLang setObjectValue:[index title]];
 }
 
 - (void)awakeFromNib
 {
 	[[self window] center];
 	[[self window] setDelegate:self];
+	_selectedLang = [NSMutableString new];
+	_selectedLang = @"English";
+	_selectedDirectory = [NSMutableString new];
+	_selectedDirectory = @"~/";
+	[self addObjectWithName:@"English"];
+	[self addObjectWithName:@"zh_TW"];	
+	[self addObjectWithName:@"zh_CN"];
+	[self addObjectWithName:@"Japanese"];
+	[self addObjectWithName:@"German"];
+	[self addObjectWithName:@"French"];
+	[self addObjectWithName:@"Italian"];
+	[self addObjectWithName:@"Spanish"];
+	
 }
 
-#pragma mark NSTableDataSource
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
+- (void)addObjectWithName:(NSString *)name
 {
-	return ([_displaylist count]);
-}
-
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
-{
-	NSString *columnName = [aTableColumn identifier];
-	if ( [columnName isEqualToString:@"col1"] ) {
-		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:0];
-	}
-	else if ( [columnName isEqualToString:@"col2"] ) {
-		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:1];
-	}
-	else if ( [columnName isEqualToString:@"col3"] ) {
-		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:2];
-	}
-	else if ( [columnName isEqualToString:@"col4"] ) {
-		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:3];
-	}
-	else if ( [columnName isEqualToString:@"col5"] ) {
-		if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:4]isEqualToString:@"isRepeat"]) {
-			return @"Repeat";
-		}
-		else {
-			return @"Not repeat";
-		}
-		
-	}
-	return nil;
+	[_arrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
 }
 
 
-- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
+- (id)initWithCoder:(NSCoder *)decoder
 {
-	NSString *columnName = [aTableColumn identifier];
-	if ( [columnName isEqualToString:@"col1"] ) {
-		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:0 withObject:anObject];
-	}else if ( [columnName isEqualToString:@"col2"] ) {
-		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:1 withObject:anObject];
-	}else if ( [columnName isEqualToString:@"col3"] ) {
-		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:2 withObject:anObject];
+	self = [super initWithCoder:decoder];
+	if (self != nil) {
+		_langArray = [NSMutableArray new];
 	}
+	return self;
 }
 
 #pragma mark NSWindow

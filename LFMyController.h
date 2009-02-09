@@ -7,17 +7,55 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-
+/*!
+    @class
+    @abstract    LFMyController is the main class of LocalizableApp
+    @discussion  none
+*/
 @interface LFMyController : NSWindowController 
 {
 	IBOutlet NSTableView *_view;
-	NSMutableArray *_LFLSTRlist;
-	NSMutableArray *_LFLSTR2list;
+	IBOutlet NSArrayController *_arrayController;
+	IBOutlet NSTextField *currentLang;
 	NSMutableArray *_displaylist;
+	NSMutableArray *_langArray;
+	NSMutableString *_selectedDirectory;
+	NSMutableString *_selectedLang;
 }
-- (void)parse:(NSString *)filePath;
+
+/*!
+ @method     
+ @abstract   addObjectWithName
+ @discussion none
+ */
+- (void)addObjectWithName:(NSString *)name;
+
+/*!
+ @method     
+ @abstract   initWithCoder
+ @discussion none
+ */
+- (id)initWithCoder:(NSCoder *)decoder;
+
+/*!
+ @method     
+ @abstract   openFile, select the directory
+ @discussion This method will call parse
+ */
 - (IBAction)openFile:(id)sender;
+
+/*!
+ @method     
+ @abstract   saveFile, save the file to Localizable.strings
+ @discussion none
+ */
 - (IBAction)saveFile:(id)sender;
+
+/*!
+ @method     
+ @abstract   showLang
+ @discussion none
+ */
+- (IBAction)showLang:(id)sender;
 
 @end
