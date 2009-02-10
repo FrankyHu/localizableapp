@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		68061D850F41604000268701 /* LFSourceCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 68061D840F41604000268701 /* LFSourceCodeParser.m */; };
+		68061E430F417C9000268701 /* LFLanguageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68061E420F417C9000268701 /* LFLanguageView.xib */; };
+		68061E5E0F41866C00268701 /* LFManagingViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68061E5D0F41866C00268701 /* LFManagingViewControllers.m */; };
+		68061E630F41876D00268701 /* LFLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68061E620F41876D00268701 /* LFLanguageViewController.m */; };
+		68061FE20F41A0EF00268701 /* LFFileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68061FE10F41A0EF00268701 /* LFFileView.xib */; };
+		68061FE70F41A10500268701 /* LFFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68061FE60F41A10500268701 /* LFFileViewController.m */; };
 		681A3F7B0F401A7B0000C0D7 /* LFPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 681A3F7A0F401A7B0000C0D7 /* LFPopup.m */; };
-		681A3FBD0F4020530000C0D7 /* LFMyController+ParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 681A3FBC0F4020530000C0D7 /* LFMyController+ParserDelegate.m */; };
 		681F917B0F397EC700A2F603 /* LFMyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 681F917A0F397EC700A2F603 /* LFMyController.m */; };
 		681F95C30F3F16DD00A2F603 /* LFMyController+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 681F95C20F3F16DD00A2F603 /* LFMyController+TableViewDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -26,14 +31,23 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* firstApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = firstApp_Prefix.pch; sourceTree = "<group>"; };
+		68061D830F41604000268701 /* LFSourceCodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSourceCodeParser.h; sourceTree = "<group>"; };
+		68061D840F41604000268701 /* LFSourceCodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSourceCodeParser.m; sourceTree = "<group>"; };
+		68061E420F417C9000268701 /* LFLanguageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFLanguageView.xib; sourceTree = "<group>"; };
+		68061E5C0F41866C00268701 /* LFManagingViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFManagingViewControllers.h; sourceTree = "<group>"; };
+		68061E5D0F41866C00268701 /* LFManagingViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFManagingViewControllers.m; sourceTree = "<group>"; };
+		68061E610F41876D00268701 /* LFLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLanguageViewController.h; sourceTree = "<group>"; };
+		68061E620F41876D00268701 /* LFLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLanguageViewController.m; sourceTree = "<group>"; };
+		68061FE10F41A0EF00268701 /* LFFileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFFileView.xib; sourceTree = "<group>"; };
+		68061FE50F41A10500268701 /* LFFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFFileViewController.h; sourceTree = "<group>"; };
+		68061FE60F41A10500268701 /* LFFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFFileViewController.m; sourceTree = "<group>"; };
 		681A3F790F401A7B0000C0D7 /* LFPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFPopup.h; sourceTree = "<group>"; };
 		681A3F7A0F401A7B0000C0D7 /* LFPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFPopup.m; sourceTree = "<group>"; };
-		681A3FBB0F4020530000C0D7 /* LFMyController+ParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LFMyController+ParserDelegate.h"; sourceTree = "<group>"; };
-		681A3FBC0F4020530000C0D7 /* LFMyController+ParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LFMyController+ParserDelegate.m"; sourceTree = "<group>"; };
 		681F91790F397EC700A2F603 /* LFMyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFMyController.h; sourceTree = "<group>"; };
 		681F917A0F397EC700A2F603 /* LFMyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFMyController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		681F95C10F3F16DD00A2F603 /* LFMyController+TableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LFMyController+TableViewDelegate.h"; sourceTree = "<group>"; };
 		681F95C20F3F16DD00A2F603 /* LFMyController+TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LFMyController+TableViewDelegate.m"; sourceTree = "<group>"; };
+		68C4BE450F41C29800E13EB4 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = ../../Downloads/SynthesizeSingleton.h; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Localizable App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Localizable App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -53,12 +67,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				681F91790F397EC700A2F603 /* LFMyController.h */,
+				68061E530F41827E00268701 /* Controller */,
+				68061E3D0F417C1200268701 /* View */,
+				68061E340F417BB200268701 /* Model */,
+				68C4BE450F41C29800E13EB4 /* SynthesizeSingleton.h */,
 				681F95C10F3F16DD00A2F603 /* LFMyController+TableViewDelegate.h */,
 				681F95C20F3F16DD00A2F603 /* LFMyController+TableViewDelegate.m */,
-				681A3FBB0F4020530000C0D7 /* LFMyController+ParserDelegate.h */,
-				681A3FBC0F4020530000C0D7 /* LFMyController+ParserDelegate.m */,
 				681F917A0F397EC700A2F603 /* LFMyController.m */,
+				681F91790F397EC700A2F603 /* LFMyController.h */,
 				681A3F790F401A7B0000C0D7 /* LFPopup.h */,
 				681A3F7A0F401A7B0000C0D7 /* LFPopup.m */,
 			);
@@ -131,6 +147,37 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		68061E340F417BB200268701 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				68061D830F41604000268701 /* LFSourceCodeParser.h */,
+				68061D840F41604000268701 /* LFSourceCodeParser.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		68061E3D0F417C1200268701 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				68061E420F417C9000268701 /* LFLanguageView.xib */,
+				68061FE10F41A0EF00268701 /* LFFileView.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		68061E530F41827E00268701 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				68061E5C0F41866C00268701 /* LFManagingViewControllers.h */,
+				68061E5D0F41866C00268701 /* LFManagingViewControllers.m */,
+				68061E610F41876D00268701 /* LFLanguageViewController.h */,
+				68061E620F41876D00268701 /* LFLanguageViewController.m */,
+				68061FE50F41A10500268701 /* LFFileViewController.h */,
+				68061FE60F41A10500268701 /* LFFileViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -176,6 +223,8 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				68061E430F417C9000268701 /* LFLanguageView.xib in Resources */,
+				68061FE20F41A0EF00268701 /* LFFileView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +239,10 @@
 				681F917B0F397EC700A2F603 /* LFMyController.m in Sources */,
 				681F95C30F3F16DD00A2F603 /* LFMyController+TableViewDelegate.m in Sources */,
 				681A3F7B0F401A7B0000C0D7 /* LFPopup.m in Sources */,
-				681A3FBD0F4020530000C0D7 /* LFMyController+ParserDelegate.m in Sources */,
+				68061D850F41604000268701 /* LFSourceCodeParser.m in Sources */,
+				68061E5E0F41866C00268701 /* LFManagingViewControllers.m in Sources */,
+				68061E630F41876D00268701 /* LFLanguageViewController.m in Sources */,
+				68061FE70F41A10500268701 /* LFFileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

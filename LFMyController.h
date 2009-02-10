@@ -7,35 +7,30 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SynthesizeSingleton.h"
+#import "LFSourceCodeParser.h"
+#import "LFLanguageViewController.h"
+#import "LFFileViewController.h"
 /*!
     @class
     @abstract    LFMyController is the main class of LocalizableApp
     @discussion  none
 */
-@interface LFMyController : NSWindowController 
+@interface LFMyController : NSPersistentDocument
 {
+	
 	IBOutlet NSTableView *_view;
-	IBOutlet NSArrayController *_arrayController;
-	IBOutlet NSTextField *currentLang;
+	IBOutlet NSPopUpButton *_popUp;
+	IBOutlet NSBox *_box;
+	NSMutableArray *_viewControllers;
 	NSMutableArray *_displaylist;
 	NSMutableArray *_langArray;
 	NSMutableString *_selectedDirectory;
 	NSMutableString *_selectedLang;
+	LFSourceCodeParser *_parser;	
 }
 
-/*!
- @method     
- @abstract   addObjectWithName
- @discussion none
- */
-- (void)addObjectWithName:(NSString *)name;
-
-/*!
- @method     
- @abstract   initWithCoder
- @discussion none
- */
-- (id)initWithCoder:(NSCoder *)decoder;
++ (void)setLang:(NSString *)name;
 
 /*!
  @method     
@@ -53,9 +48,9 @@
 
 /*!
  @method     
- @abstract   showLang
+ @abstract   changeViewController
  @discussion none
  */
-- (IBAction)showLang:(id)sender;
+- (IBAction)changeViewController:(id)sender;
 
 @end
