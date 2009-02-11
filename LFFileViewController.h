@@ -10,7 +10,13 @@
 #import "LFManagingViewControllers.h"
 
 @interface LFFileViewController : LFManagingViewControllers {
-
+	IBOutlet NSTableView *_fileView;
+	IBOutlet NSArrayController *_arrayController;
+	NSMutableDictionary *_fileDict;
+	NSMutableArray *_fileArray;
 }
+- (void)refreshFileList;
+- (void)addObjectWithName:(NSString *)name;
+- (IBAction)selectFile:(id)sender;
 
 @end

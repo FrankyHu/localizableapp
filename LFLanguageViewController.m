@@ -49,7 +49,6 @@
 	if ([sender clickedRow] < [_langArray count]) {
 		[LFMyController setLang:[_langArray objectAtIndex:[sender clickedRow]]];
 	}
-	
 }
 
 @end

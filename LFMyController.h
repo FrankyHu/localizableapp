@@ -18,19 +18,37 @@
 */
 @interface LFMyController : NSPersistentDocument
 {
-	
 	IBOutlet NSTableView *_view;
 	IBOutlet NSPopUpButton *_popUp;
 	IBOutlet NSBox *_box;
 	NSMutableArray *_viewControllers;
+	NSMutableArray *_backgroundList;
 	NSMutableArray *_displaylist;
 	NSMutableArray *_langArray;
 	NSMutableString *_selectedDirectory;
-	NSMutableString *_selectedLang;
 	LFSourceCodeParser *_parser;	
 }
 
+/*!
+ @method     
+ @abstract   setFileToDisplay
+ @discussion none
+ */
++ (void)setFileToDisplay:(NSString *)fileName;
+
+/*!
+ @method     
+ @abstract   setLang
+ @discussion none
+ */
 + (void)setLang:(NSString *)name;
+
+/*!
+ @method     
+ @abstract   getFileDict
+ @discussion none
+ */
++ (NSMutableDictionary *)getFileDict;
 
 /*!
  @method     
@@ -53,4 +71,10 @@
  */
 - (IBAction)changeViewController:(id)sender;
 
+/*!
+ @method     
+ @abstract   reloadView
+ @discussion none
+ */
+- (IBAction)reloadView:(id)sender;
 @end

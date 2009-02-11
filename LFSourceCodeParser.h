@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "LFFileViewController.h"
 
 @interface LFSourceCodeParser : NSObject {
 	NSMutableArray *_displaylist;

@@ -99,7 +99,6 @@
 							[col addObject:param2];
 							[col addObject:file];
 							[_displaylist addObject:col];
-							
 						}
 					}
 				}		
@@ -129,5 +128,6 @@
 {
 	return _displaylist;
 }
+
 
 @end
