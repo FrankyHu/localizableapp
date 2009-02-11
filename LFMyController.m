@@ -13,7 +13,9 @@
 @implementation LFMyController
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(LFMyController); //Make this class singleton
-
+NSMutableDictionary *_fileDict;
+NSMutableString *_selectedLang;
+NSString *_currentFile;
 - (id) init
 {
 	[super init];
@@ -51,6 +53,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(LFMyController); //Make this class singleton
 	}
 	//Put the view in the box
 	NSView *v = [vc view];
+	
+//	//Compute the new window frame
+//	NSSize currentSize = [[_box contentView] frame].size;
+//	NSSize newSize = [v frame].size;
+//	float deltaWidth = newSize.width - currentSize.width;
+//	float deltaHeight = newSize.height - currentSize.height;
+//	NSRect windowFrame = [w frame];
+//	windowFrame.size.height += deltaHeight;
+//	windowFrame.origin.y -= deltaHeight;
+//	windowFrame.size.width += deltaWidth;
+//	
+//	//Clear the box for resizing
+//	[_box setContentView:nil];
+//	[w setFrame:windowFrame display:YES animate:YES];
+	
 	[_box setContentView:v];
 }
 
@@ -68,7 +85,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(LFMyController); //Make this class singleton
 		_parser = [LFSourceCodeParser new];
 		[_parser parse:_selectedDirectory];
 		_displaylist = [_parser getDisplaylist];
+		_backgroundList = [_parser getDisplaylist];
 		[_view reloadData];
+		//
+		_fileDict = [NSMutableDictionary dictionary];
+		for (id x in _backgroundList) {
+			NSString *str = [x objectAtIndex:3];
+			[_fileDict setObject:str forKey:str];
+		}
+		[_fileDict retain];
+		//
 	}
 }
 
@@ -135,6 +161,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(LFMyController); //Make this class singleton
 
 - (void)awakeFromNib
 {
+	_backgroundList = [NSMutableArray new];
+	_displaylist = [NSMutableArray new];
 	_langArray = [NSMutableArray new];
 	_selectedLang = [NSMutableString new];
 	_selectedLang = @"English";
@@ -160,6 +188,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(LFMyController); //Make this class singleton
 {
 	_selectedLang = [NSMutableString new];
 	[_selectedLang appendString:name];
+}
+
++ (void)setFileToDisplay:(NSString *)fileName
+{
+	_currentFile = [NSString new];
+	_currentFile = fileName;
+	[_currentFile retain];
+}
+
+- (IBAction)reloadView:(id)sender
+{
+	_displaylist = [NSMutableArray new];
+	for (id x in _backgroundList) {
+		NSString *str = [x objectAtIndex:3];
+		if ([str isEqualToString:_currentFile]) {
+			[_displaylist addObject:x];
+		}
+	}
+	[_view reloadData];
+}
+
++ (NSMutableDictionary *)getFileDict
+{
+	return _fileDict;
 }
 
 #pragma mark NSWindow
