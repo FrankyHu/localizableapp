@@ -1,8 +1,8 @@
 //
 //  main.m
-//  firstApp
+//  Localizable App
 //
-//  Created by Hu Chin-Hao on 2/4/09.
+//  Created by Hu Chin-Hao on 2/12/09.
 //  Copyright __MyCompanyName__ 2009. All rights reserved.
 //
 

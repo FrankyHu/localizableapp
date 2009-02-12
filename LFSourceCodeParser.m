@@ -124,9 +124,9 @@
 	}
 }
 
-- (NSMutableArray *)getDisplaylist
+- (NSMutableArray *)Displaylist
 {
-	return _displaylist;
+	return [[_displaylist retain] autorelease];
 }
 
 

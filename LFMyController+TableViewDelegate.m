@@ -21,19 +21,19 @@
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
 	NSString *columnName = [aTableColumn identifier];
-	if ( [columnName isEqualToString:@"col1"] ) {
+	if ( [columnName isEqualToString:@"Original"] ) {
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:0];
 	}
-	else if ( [columnName isEqualToString:@"col2"] ) {
+	else if ( [columnName isEqualToString:@"Translate"] ) {
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:1];
 	}
-	else if ( [columnName isEqualToString:@"col3"] ) {
+	else if ( [columnName isEqualToString:@"Comment"] ) {
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:2];
 	}
-	else if ( [columnName isEqualToString:@"col4"] ) {
+	else if ( [columnName isEqualToString:@"FileName"] ) {
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:3];
 	}
-	else if ( [columnName isEqualToString:@"col5"] ) {
+	else if ( [columnName isEqualToString:@"Status"] ) {
 		if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:4]isEqualToString:@"isRepeat"]) {
 			return @"Repeat";
 		}
@@ -42,18 +42,39 @@
 		}
 		
 	}
+	else if ( [columnName isEqualToString:@"Localized"] ) {
+		return [_localizedArray objectAtIndex:rowIndex];
+	}
+	
 	return nil;
+}
+
+- (void)tableView: (NSTableView *)aTableView willDisplayCell:(id)aCell 
+   forTableColumn:(NSTableColumn *)TC row:(int)row
+{
+	if ([[_localizedArray objectAtIndex:row] isEqualToString:@"NO"])
+	{
+		[aCell setDrawsBackground: YES];
+		[aCell setBackgroundColor:
+		 [NSColor colorWithCalibratedRed: 0.9 green: 0.9 blue:1 alpha: 
+		  1.0]];
+	}
+	else
+	{
+		[aCell setDrawsBackground: NO];
+		[aCell setBackgroundColor: [NSColor whiteColor]];
+	}
 }
 
 
 - (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
 	NSString *columnName = [aTableColumn identifier];
-	if ( [columnName isEqualToString:@"col1"] ) {
+	if ( [columnName isEqualToString:@"Original"] ) {
 		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:0 withObject:anObject];
-	}else if ( [columnName isEqualToString:@"col2"] ) {
+	}else if ( [columnName isEqualToString:@"Translate"] ) {
 		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:1 withObject:anObject];
-	}else if ( [columnName isEqualToString:@"col3"] ) {
+	}else if ( [columnName isEqualToString:@"Comment"] ) {
 		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:2 withObject:anObject];
 	}
 }

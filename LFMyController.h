@@ -7,49 +7,40 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SynthesizeSingleton.h"
+#import "LFLocalizableStringsParser.h"
 #import "LFSourceCodeParser.h"
-#import "LFLanguageViewController.h"
-#import "LFFileViewController.h"
+#import "LFLprojParser.h"
 /*!
     @class
     @abstract    LFMyController is the main class of LocalizableApp
     @discussion  none
 */
-@interface LFMyController : NSPersistentDocument
+@interface LFMyController : NSWindowController
 {
 	IBOutlet NSTableView *_view;
-	IBOutlet NSPopUpButton *_popUp;
-	IBOutlet NSBox *_box;
-	NSMutableArray *_viewControllers;
+	IBOutlet NSView *_openFileView;
+	IBOutlet NSArrayController *_arrayController;
+	IBOutlet NSTextField *_addLprojText;
+	IBOutlet NSButton *_addLprojButton;
+	IBOutlet NSPopUpButton *_langPopUp;
+	NSMutableArray *_localizedArray;
+	NSMutableArray *_stringList;
 	NSMutableArray *_backgroundList;
 	NSMutableArray *_displaylist;
 	NSMutableArray *_langArray;
+	NSMutableDictionary *_fileDict;
+	NSMutableDictionary *_lprojDict;
+	NSMutableString *_selectedLang;
 	NSMutableString *_selectedDirectory;
-	LFSourceCodeParser *_parser;	
+	NSString *_currentFile;
+	NSString *_currentDir;
+	LFLocalizableStringsParser *_localizableStringsParser;
+	LFSourceCodeParser *_sourceCodeParser;
+	LFLprojParser *_lprojParser;
 }
-
-/*!
- @method     
- @abstract   setFileToDisplay
- @discussion none
- */
-+ (void)setFileToDisplay:(NSString *)fileName;
-
-/*!
- @method     
- @abstract   setLang
- @discussion none
- */
-+ (void)setLang:(NSString *)name;
-
-/*!
- @method     
- @abstract   getFileDict
- @discussion none
- */
-+ (NSMutableDictionary *)getFileDict;
-
+- (void)panelSelectionDidChange:(id)sender;
+- (void)addObjectWithName:(NSString *)name;
+- (IBAction)addLproj:(id)sender;
 /*!
  @method     
  @abstract   openFile, select the directory
@@ -63,13 +54,6 @@
  @discussion none
  */
 - (IBAction)saveFile:(id)sender;
-
-/*!
- @method     
- @abstract   changeViewController
- @discussion none
- */
-- (IBAction)changeViewController:(id)sender;
 
 /*!
  @method     
