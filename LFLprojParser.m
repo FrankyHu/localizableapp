@@ -16,7 +16,6 @@
 	_directoryList = [NSMutableDictionary new];
 	NSString *file;
 	//Scan for macro LFLSTR in project directory
-	//NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:filePath];
 	NSArray *dirArray = [[NSFileManager defaultManager]	contentsOfDirectoryAtPath:filePath error:nil];
 	NSEnumerator *enumerator = [dirArray objectEnumerator];
 	while (file = [enumerator nextObject]) {

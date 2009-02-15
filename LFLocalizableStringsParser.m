@@ -13,7 +13,7 @@
 - (void)parse:(NSString *)filePath
 {
 	_stringList = [NSMutableArray new];
-	BOOL isComment = NO;
+	//BOOL isComment = NO;
 	int i = 0, j = 0, k = 0;
 	NSString *s= [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 	//Scan the comment on the top of the file, if not then break
@@ -36,10 +36,10 @@
 		NSMutableString *param1 = [NSMutableString string];
 		NSMutableString *param2 = [NSMutableString string];
 //		NSMutableString *param3 = [NSMutableString string];
-		if ([s characterAtIndex:i] == '"') {
+		if ([s characterAtIndex:i] == '"' && [s characterAtIndex:i-1] != '\\') {
 			//First param
 			for (j = i + 1; j < [s length]; j++) {
-				if ([s characterAtIndex:j] == '"' && [s characterAtIndex:j-1] != '\\' ) {
+				if ([s characterAtIndex:j] == '"' && [s characterAtIndex:j-1] != '\\') {
 					i = j;
 					break;
 				}
@@ -47,13 +47,13 @@
 			}
 			//2nd param
 			for (j = i + 1; j < [s length]; j++) {
-				if ([s characterAtIndex:j] == '"' && [s characterAtIndex:j-1] != '\\' ) {
+				if ([s characterAtIndex:j] == '"' && [s characterAtIndex:j-1] != '\\') {
 					i = j;
 					break;
 				}
 			}
 			for (j = i + 1; j < [s length]; j++) {
-				if ([s characterAtIndex:j] == '"') {
+				if ([s characterAtIndex:j] == '"' && [s characterAtIndex:j-1] != '\\') {
 					i = j;
 					break;
 				}

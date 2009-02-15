@@ -39,9 +39,28 @@
 	LFSourceCodeParser *_sourceCodeParser;
 	LFLprojParser *_lprojParser;
 }
+
+/*!
+ @method     
+ @abstract   panelSelectionDidChange
+ @discussion 
+ */
 - (void)panelSelectionDidChange:(id)sender;
+
+/*!
+ @method     
+ @abstract   addObjectWithName
+ @discussion 
+ */
 - (void)addObjectWithName:(NSString *)name;
+
+/*!
+ @method     
+ @abstract   addLproj
+ @discussion 
+ */
 - (IBAction)addLproj:(id)sender;
+
 /*!
  @method     
  @abstract   openFile, select the directory
@@ -52,14 +71,14 @@
 /*!
  @method     
  @abstract   saveFile, save the file to Localizable.strings
- @discussion none
+ @discussion 
  */
 - (IBAction)saveFile:(id)sender;
 
 /*!
  @method     
  @abstract   reloadView
- @discussion none
+ @discussion 
  */
 - (IBAction)reloadView:(id)sender;
 @end

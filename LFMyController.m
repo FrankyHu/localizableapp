@@ -176,11 +176,10 @@
 				
 			}
 			checked = NO;
-		}
-		
-		NSLog(@"%d",[_localizedArray count]);
-		NSLog(@"%d",[_displaylist count]);
-		NSLog(@"%d",[_stringList count]);
+		}		
+//		NSLog(@"%d",[_localizedArray count]);
+//		NSLog(@"%d",[_displaylist count]);
+//		NSLog(@"%d",[_stringList count]);
 		//
 		[lprojPath release];
 		[_localizableStringsParser release];
