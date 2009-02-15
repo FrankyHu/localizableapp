@@ -21,8 +21,10 @@
 		_selectedDirectory = [NSMutableString new];
 		_currentDir = [NSString new];
 		_localizedArray = [NSMutableArray new];
-		_selectedLang = @"English";
+		//_selectedLang = @"English";
 		_selectedDirectory = @"~/";
+		//[_selectedLang retain];
+		[_selectedDirectory retain];
         /* class-specific initialization goes here */
     }
     return self;
@@ -73,14 +75,17 @@
 	[_selectedFile appendString:@"/"];
 	[_selectedFile appendString:lprojName];
 	[_selectedFile appendString:@".lproj"];
-	NSMutableString *writer = [NSMutableString new];
-	[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
-	NSAlert *alert = [NSAlert alertWithMessageText:@"Done" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"Directory %@.lproj created.",lprojName];
-	[alert runModal];
+	//NSMutableString *writer = [NSMutableString stringWithString:@""];
+	//NSLog(@"%@",writer);
+	NSFileManager *fm = [NSFileManager defaultManager];
+	[fm createDirectoryAtPath:_selectedFile attributes:nil];
+	//[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
+	//NSAlert *alert = [NSAlert alertWithMessageText:@"Done" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"Directory %@.lproj created.",lprojName];
+	//[alert runModal];
 	[self addObjectWithName:lprojName];
 	[_langArray addObject:lprojName];
 	[_selectedFile release];
-	[writer release];
+	//[writer release];
 }
 
 - (IBAction)openFile:(id)sender
@@ -120,6 +125,7 @@
 		[lprojPath appendString:@"/"];
 		[lprojPath appendString:[_langArray objectAtIndex:[_langPopUp indexOfSelectedItem]]];
 		[lprojPath appendString:@".lproj/Localizable.strings"];
+		
 		_localizableStringsParser = [LFLocalizableStringsParser new];
 		[_localizableStringsParser parse:lprojPath];
 		l = _stringList;
@@ -142,11 +148,11 @@
 			}
 			checked = NO;
 		}
-		NSLog([_localizedArray description]);
 		//
 		[lprojPath release];
 		[_localizableStringsParser release];
 	}
+	[_selectedDirectory retain]; //must retain, otherwise it'll release at saveFile
 }
 
 - (void)addObjectWithName:(NSString *)name
@@ -156,12 +162,13 @@
 
 - (IBAction)saveFile:(id)sender
 {
+	//NSLog(@"%@",_selectedDirectory);
 	if (![_selectedDirectory isEqualToString:@"~/"]) {
 		NSMutableString *_selectedFile = [NSMutableString new];
 		NSFileManager *_manager = [NSFileManager new];
 		[_selectedFile appendString:_selectedDirectory] ;
 		[_selectedFile appendString:@"/"];
-		[_selectedFile appendString:_selectedLang];
+		[_selectedFile appendString:[_langArray objectAtIndex:[_langPopUp indexOfSelectedItem]]];
 		[_selectedFile appendString:@".lproj"];
 		[_manager createDirectoryAtPath:_selectedFile withIntermediateDirectories:YES attributes:nil error:nil];
 		[_selectedFile appendString:@"/Localizable.strings"];
@@ -198,7 +205,6 @@
 		[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
 		NSAlert *_alert = [NSAlert alertWithMessageText:@"Done" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"File saved!"];;
 		[_alert runModal];
-		_selectedFile = nil;
 	}
 	else {
 		NSAlert *_alert = [NSAlert alertWithMessageText:@"Error" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"Please open a directory first."];;

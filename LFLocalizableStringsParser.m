@@ -12,7 +12,6 @@
 @implementation LFLocalizableStringsParser
 - (void)parse:(NSString *)filePath
 {
-	NSLog(filePath);
 	_stringList = [NSMutableArray new];
 	BOOL isComment = NO;
 	int i, j, k;
@@ -88,10 +87,6 @@
 			[array addObject:param3];
 			[_stringList addObject:array];
 		}
-	}
-	
-	for (id x in _stringList) {
-		NSLog([x description]);
 	}
 }
 
