@@ -14,6 +14,7 @@
 - (id) init
 {
     if ((self = [super init])) {
+		_userDefaults = [NSUserDefaults standardUserDefaults];
 		_backgroundList = [NSMutableArray new];
 		_displaylist = [NSMutableArray new];
 		_langArray = [NSMutableArray new];
@@ -22,9 +23,7 @@
 		_currentDir = [NSString new];
 		_localizedArray = [NSMutableArray new];
 		_lprojParser = [LFLprojParser new];
-		//_selectedLang = @"English";
 		_selectedDirectory = @"~/";
-		//[_selectedLang retain];
 		[_selectedDirectory retain];
         /* class-specific initialization goes here */
     }
@@ -48,7 +47,7 @@
 {
 	//Find all lproj directory
 	_currentDir = [sender filename];
-	
+	[_userDefaults setObject:_currentDir forKey:@"OpenPath"];
 	if ([_lprojParser parse:_currentDir]) {
 		_lprojDict = [NSMutableDictionary dictionary];
 		_lprojDict = [_lprojParser directoryList];
@@ -101,7 +100,30 @@
 	[_panel setCanChooseDirectories:YES];
 	[_panel setCanChooseFiles:NO];
 	[_panel setAccessoryView:_openFileView];
+	if ([_userDefaults objectForKey:@"OpenPath"]) {
+		[_panel setDirectory:[_userDefaults objectForKey:@"OpenPath"]];
+		_currentDir = [_userDefaults objectForKey:@"OpenPath"];
+		if ([_lprojParser parse:_currentDir]) {
+			_lprojDict = [NSMutableDictionary dictionary];
+			_lprojDict = [_lprojParser directoryList];
+			NSEnumerator *e = [_lprojDict keyEnumerator];
+			[_arrayController removeObjectsAtArrangedObjectIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[_arrayController arrangedObjects] count])]];
+			for (id x in e) {
+				[self addObjectWithName:[[_lprojParser directoryList] objectForKey:x]];
+				[_langArray addObject:[[_lprojParser directoryList] objectForKey:x]];
+			}
+			[_addLprojButton setEnabled:YES];
+		}
+		else {
+			[_addLprojButton setEnabled:NO];
+		}
+		[_currentDir retain];
+	}
+	else {
+		[_panel setDirectory:@"~/"];
+	}
 	int result = [_panel runModal];
+	
 	if (result == NSOKButton){
 		_selectedDirectory = [NSMutableString stringWithString:[_panel filename]];
 		//Parse source code: Read LFLSTR & LFLSTR2 to arrays
@@ -142,19 +164,29 @@
 			for (id y in _stringList) {
 				if ([[x objectAtIndex:0] isEqualToString:[y objectAtIndex:0]]) {
 					[_localizedArray addObject:yes];
+					//Modify _displaylist objAtIndex:1
+					[x replaceObjectAtIndex:1 withObject:[y objectAtIndex:1]];
 					checked = YES;
+					break;
 				}
 			}
 			if (!checked) {
-				[_localizedArray addObject:no];	
+				[x replaceObjectAtIndex:1 withObject:@""];
+				[_localizedArray addObject:no];
+				
 			}
 			checked = NO;
 		}
+		
+		NSLog(@"%d",[_localizedArray count]);
+		NSLog(@"%d",[_displaylist count]);
+		NSLog(@"%d",[_stringList count]);
 		//
 		[lprojPath release];
 		[_localizableStringsParser release];
 	}
 	[_selectedDirectory retain]; //must retain, otherwise it'll release at saveFile
+	[self showWindow:self];
 }
 
 - (void)addObjectWithName:(NSString *)name

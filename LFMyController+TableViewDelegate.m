@@ -25,6 +25,12 @@
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:0];
 	}
 	else if ( [columnName isEqualToString:@"Translate"] ) {
+//		for (id y in _stringList) {
+//			if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:0] isEqualToString:[y objectAtIndex:0]]) {
+//				return [y objectAtIndex:1];
+//			}
+//		}
+//		return @"";
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:1];
 	}
 	else if ( [columnName isEqualToString:@"Comment"] ) {
@@ -44,23 +50,19 @@
 	}
 	else if ( [columnName isEqualToString:@"Localized"] ) {
 		return [_localizedArray objectAtIndex:rowIndex];
-	}
-	
+	}	
 	return nil;
 }
 
-- (void)tableView: (NSTableView *)aTableView willDisplayCell:(id)aCell 
-   forTableColumn:(NSTableColumn *)TC row:(int)row
+- (void)tableView: (NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)TC row:(int)row
 {
-	if ([[_localizedArray objectAtIndex:row] isEqualToString:@"NO"])
-	{
+	if ([[_localizedArray objectAtIndex:row] isEqualToString:@"NO"]) {
 		[aCell setDrawsBackground: YES];
 		[aCell setBackgroundColor:
 		 [NSColor colorWithCalibratedRed: 0.9 green: 0.9 blue:1 alpha: 
 		  1.0]];
 	}
-	else
-	{
+	else {
 		[aCell setDrawsBackground: NO];
 		[aCell setBackgroundColor: [NSColor whiteColor]];
 	}
@@ -72,9 +74,11 @@
 	NSString *columnName = [aTableColumn identifier];
 	if ( [columnName isEqualToString:@"Original"] ) {
 		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:0 withObject:anObject];
-	}else if ( [columnName isEqualToString:@"Translate"] ) {
+	}
+	else if ( [columnName isEqualToString:@"Translate"] ) {
 		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:1 withObject:anObject];
-	}else if ( [columnName isEqualToString:@"Comment"] ) {
+	}
+	else if ( [columnName isEqualToString:@"Comment"] ) {
 		[[_displaylist objectAtIndex:rowIndex] replaceObjectAtIndex:2 withObject:anObject];
 	}
 }

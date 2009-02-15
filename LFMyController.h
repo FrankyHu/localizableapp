@@ -32,6 +32,7 @@
 	NSMutableDictionary *_lprojDict;
 	NSMutableString *_selectedLang;
 	NSMutableString *_selectedDirectory;
+	NSUserDefaults *_userDefaults;
 	NSString *_currentFile;
 	NSString *_currentDir;
 	LFLocalizableStringsParser *_localizableStringsParser;
