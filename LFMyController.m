@@ -21,6 +21,7 @@
 		_selectedDirectory = [NSMutableString new];
 		_currentDir = [NSString new];
 		_localizedArray = [NSMutableArray new];
+		_lprojParser = [LFLprojParser new];
 		//_selectedLang = @"English";
 		_selectedDirectory = @"~/";
 		//[_selectedLang retain];
@@ -39,6 +40,7 @@
 	[_selectedLang release];
 	[_selectedDirectory release];
 	[_localizedArray release];
+	[_lprojParser release];
 	[super dealloc];
 }
 
@@ -46,7 +48,7 @@
 {
 	//Find all lproj directory
 	_currentDir = [sender filename];
-	_lprojParser = [LFLprojParser new];
+	
 	if ([_lprojParser parse:_currentDir]) {
 		_lprojDict = [NSMutableDictionary dictionary];
 		_lprojDict = [_lprojParser directoryList];
@@ -62,8 +64,8 @@
 		[_addLprojButton setEnabled:NO];
 	}
 	[_currentDir retain];
-	[_lprojDict release];
-	[_lprojParser release];
+	//[_lprojDict release];
+	
 }
 
 - (IBAction)addLproj:(id)sender
