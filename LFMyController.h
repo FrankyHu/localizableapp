@@ -1,6 +1,6 @@
 //
 //  LFMyController.h
-//  firstApp
+//  Localizable App
 //
 //  Created by Hu Chin-Hao on 2/4/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
@@ -10,10 +10,11 @@
 #import "LFLocalizableStringsParser.h"
 #import "LFSourceCodeParser.h"
 #import "LFLprojParser.h"
+
 /*!
     @class
-    @abstract    LFMyController is the main class of LocalizableApp
-    @discussion  none
+    @abstract    LFMyController is the main class of Localizable App
+    @discussion  This is the main controller in the project
 */
 @interface LFMyController : NSWindowController
 {
@@ -43,42 +44,42 @@
 /*!
  @method     
  @abstract   panelSelectionDidChange
- @discussion 
+ @discussion This method will be call if the direcpory path change in open file panel
  */
 - (void)panelSelectionDidChange:(id)sender;
 
 /*!
  @method     
  @abstract   addObjectWithName
- @discussion 
+ @discussion Add the object to array controller and show in pop up button
  */
 - (void)addObjectWithName:(NSString *)name;
 
 /*!
  @method     
  @abstract   addLproj
- @discussion 
+ @discussion Add language button in open panel
  */
 - (IBAction)addLproj:(id)sender;
 
 /*!
  @method     
  @abstract   openFile, select the directory
- @discussion This method will call parse
+ @discussion This method will call parse and show in table view
  */
 - (IBAction)openFile:(id)sender;
 
 /*!
  @method     
  @abstract   saveFile, save the file to Localizable.strings
- @discussion 
+ @discussion Save to Localizable.strings
  */
 - (IBAction)saveFile:(id)sender;
 
 /*!
  @method     
  @abstract   reloadView
- @discussion 
+ @discussion Reload the table view
  */
 - (IBAction)reloadView:(id)sender;
 @end

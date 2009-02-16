@@ -1,6 +1,6 @@
 //
 //  LFMyController.m
-//  firstApp
+//  Localizable App
 //
 //  Created by Hu Chin-Hao on 2/4/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.

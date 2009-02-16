@@ -1,6 +1,6 @@
 //
 //  MyController+TableViewDelegate.m
-//  firstApp
+//  Localizable App
 //
 //  Created by Hu Chin-Hao on 2/8/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
@@ -25,12 +25,6 @@
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:0];
 	}
 	else if ( [columnName isEqualToString:@"Translate"] ) {
-//		for (id y in _stringList) {
-//			if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:0] isEqualToString:[y objectAtIndex:0]]) {
-//				return [y objectAtIndex:1];
-//			}
-//		}
-//		return @"";
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:1];
 	}
 	else if ( [columnName isEqualToString:@"Comment"] ) {
@@ -46,11 +40,7 @@
 		else {
 			return @"Not Duplicate";
 		}
-		
 	}
-//	else if ( [columnName isEqualToString:@"Localized"] ) {
-//		return [_localizedArray objectAtIndex:rowIndex];
-//	}	
 	return nil;
 }
 

@@ -14,7 +14,8 @@
 {
 	_stringList = [NSMutableArray new];
 	//BOOL isComment = NO;
-	int i = 0, j = 0, k = 0;
+	int i = 0, j = 0;
+	//int k = 0;
 	NSString *s= [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 	//Scan the comment on the top of the file, if not then break
 //	for (i = 0; i < [s length]; i++) {
