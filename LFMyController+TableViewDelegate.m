@@ -41,16 +41,16 @@
 	}
 	else if ( [columnName isEqualToString:@"Status"] ) {
 		if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:4]isEqualToString:@"isRepeat"]) {
-			return @"Repeat";
+			return @"Duplicate";
 		}
 		else {
-			return @"Not repeat";
+			return @"Not Duplicate";
 		}
 		
 	}
-	else if ( [columnName isEqualToString:@"Localized"] ) {
-		return [_localizedArray objectAtIndex:rowIndex];
-	}	
+//	else if ( [columnName isEqualToString:@"Localized"] ) {
+//		return [_localizedArray objectAtIndex:rowIndex];
+//	}	
 	return nil;
 }
 

@@ -206,34 +206,50 @@
 		[_manager createDirectoryAtPath:_selectedFile withIntermediateDirectories:YES attributes:nil error:nil];
 		[_selectedFile appendString:@"/Localizable.strings"];
 		NSMutableString *writer = [NSMutableString new];
+		NSMutableString *lastFileName = [NSMutableString new];
 		for (id x in _displaylist) {
+			if (![lastFileName isEqualToString:[x objectAtIndex:3]]) {
+				lastFileName = [x objectAtIndex:3];
+				[writer appendString:@"\n"];
+				[writer appendString:@"/* "];
+				[writer appendString:[x objectAtIndex:3]];
+				[writer appendString:@" */"];
+				[writer appendString:@"\n"];
+			}
 			if ([[x objectAtIndex:4] isEqualToString:@"isRepeat"]) {
 				[writer appendString:@"/*"];
-			}
-			[writer appendString:@"\""];
-			[writer appendString:[x objectAtIndex:0]];
-			[writer appendString:@"\""];
-			[writer appendString:@" = "];
-			[writer appendString:@"\""];
-			[writer appendString:[x objectAtIndex:1]];
-			[writer appendString:@"\";"];
-			if ([[x objectAtIndex:4] isEqualToString:@"isRepeat"]) {
+				[writer appendString:@"\\\""];
+				[writer appendString:[x objectAtIndex:0]];
+				[writer appendString:@"\\\""];
+				[writer appendString:@" = "];
+				[writer appendString:@"\\\""];
+				[writer appendString:[x objectAtIndex:1]];
+				[writer appendString:@"\\\";"];
 				[writer appendString:@"*/"];
+			}
+			else {
+				[writer appendString:@"\""];
+				[writer appendString:[x objectAtIndex:0]];
+				[writer appendString:@"\""];
+				[writer appendString:@" = "];
+				[writer appendString:@"\""];
+				[writer appendString:[x objectAtIndex:1]];
+				[writer appendString:@"\";"];
 			}
 			if (![[x objectAtIndex:2] isEqualToString:@""]) {
 				[writer appendString:@" /* Comment: "];
 				[writer appendString:[x objectAtIndex:2]];
-				[writer appendString:@" File name: "];
-				[writer appendString:[x objectAtIndex:3]];
+//				[writer appendString:@" File name: "];
+//				[writer appendString:[x objectAtIndex:3]];
 				[writer appendString:@" */"];
-				[writer appendString:@"\n"];
 			}
-			else {
-				[writer appendString:@" /* File name: "];
-				[writer appendString:[x objectAtIndex:3]];
-				[writer appendString:@" */"];
-				[writer appendString:@"\n"];
-			}
+//			else {
+//				[writer appendString:@" /* File name: "];
+//				[writer appendString:[x objectAtIndex:3]];
+//				[writer appendString:@" */"];
+//				[writer appendString:@"\n"];
+//			}
+			[writer appendString:@"\n"];
 		}
 		[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
 		NSAlert *_alert = [NSAlert alertWithMessageText:@"Done" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"File saved!"];;
