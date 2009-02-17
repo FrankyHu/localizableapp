@@ -3,12 +3,11 @@
 //  Localizable App
 //
 //  Created by Hu Chin-Hao on 2/4/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Lithoglyph Inc. All rights reserved.
 //
 
 #import "LFMyController.h"
 #import "LFMyController+TableViewDelegate.h"
-
 
 @implementation LFMyController
 - (id) init
@@ -94,7 +93,7 @@
 	[_addLprojButton setEnabled:NO];
 	//Open file dialog
 	[_arrayController removeObjectsAtArrangedObjectIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[_arrayController arrangedObjects] count])]];
-	[self addObjectWithName:@"Select Project Directory First"];
+	[self addObjectWithName:LFLSTR(@"Select Project Directory First")];
 	NSOpenPanel *_panel= [NSOpenPanel openPanel];
 	[_panel setDelegate:self];
 	[_panel setCanChooseDirectories:YES];
@@ -252,11 +251,11 @@
 			[writer appendString:@"\n"];
 		}
 		[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
-		NSAlert *_alert = [NSAlert alertWithMessageText:@"Done" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"File saved!"];;
+		NSAlert *_alert = [NSAlert alertWithMessageText:LFLSTR(@"Done") defaultButton:LFLSTR(@"OK") alternateButton:nil otherButton:nil informativeTextWithFormat:LFLSTR(@"File saved!")];;
 		[_alert runModal];
 	}
 	else {
-		NSAlert *_alert = [NSAlert alertWithMessageText:@"Error" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"Please open a directory first."];;
+		NSAlert *_alert = [NSAlert alertWithMessageText:LFLSTR(@"Error") defaultButton:LFLSTR(@"OK") alternateButton:nil otherButton:nil informativeTextWithFormat:LFLSTR(@"Please open a directory first.")];;
 		[_alert runModal];
 	}
 }
@@ -287,3 +286,13 @@
 }
 
 @end
+
+NSString *LFLSTR(NSString *key)
+{
+	static NSBundle *LFLSCachedMainBundle = nil;
+    if (!LFLSCachedMainBundle) {
+        LFLSCachedMainBundle = [NSBundle mainBundle];
+    }
+    
+    return [LFLSCachedMainBundle localizedStringForKey:key value:nil table:nil];
+}

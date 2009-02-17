@@ -3,7 +3,7 @@
 //  Localizable App
 //
 //  Created by Hu Chin-Hao on 2/8/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Lithoglyph Inc. All rights reserved.
 //
 
 #import "LFMyController+TableViewDelegate.h"
@@ -35,10 +35,10 @@
 	}
 	else if ( [columnName isEqualToString:@"Status"] ) {
 		if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:4]isEqualToString:@"isRepeat"]) {
-			return @"Duplicate";
+			return LFLSTR(@"Duplicate");
 		}
 		else {
-			return @"Not Duplicate";
+			return LFLSTR(@"Not Duplicate");
 		}
 	}
 	return nil;

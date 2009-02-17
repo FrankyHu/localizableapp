@@ -7,7 +7,11 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
+	<string>localizableapp</string>
+	<key>CFBundleShortVersionString</key>
 	<string></string>
+	<key>CFBundleDisplayName</key>
+	<string>Localizable App</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.yourcompany.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -24,5 +28,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2009 Lithoglyph Inc.</string>
 </dict>
 </plist>

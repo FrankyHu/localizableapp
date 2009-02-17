@@ -3,7 +3,7 @@
 //  Localizable App
 //
 //  Created by Hu Chin-Hao on 2/12/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Lithoglyph Inc. All rights reserved.
 //
 
 #import "LFLocalizableStringsParser.h"
@@ -88,10 +88,6 @@
 //			[array addObject:param3];
 			[_stringList addObject:array];
 		}
-	}
-
-	for (id x in _stringList) {
-		NSLog(@"%@",x);
 	}
 }
 
