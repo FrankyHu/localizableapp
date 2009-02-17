@@ -1,0 +1,13 @@
+
+/* LFMyController+TableViewDelegate.m */
+"Duplicate" = "Duplicate";
+"Not Duplicate" = "Not Duplicate";
+
+/* LFMyController.m */
+"Select Project Directory First" = "Select Project Directory First";
+"Done" = "Done";
+"OK" = "OK";
+"File saved!" = "File saved!";
+"Error" = "Error";
+/*\"OK\" = \"OK\";*/
+"Please open a directory first." = "Please open a directory first.";

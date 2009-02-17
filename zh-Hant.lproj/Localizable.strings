@@ -1,0 +1,13 @@
+
+/* LFMyController+TableViewDelegate.m */
+"Duplicate" = "字串重複";
+"Not Duplicate" = "字串無重複";
+
+/* LFMyController.m */
+"Select Project Directory First" = "請先選擇專案所在目錄";
+"Done" = "完成";
+"OK" = "確定";
+"File saved!" = "檔案儲存成功！";
+"Error" = "錯誤";
+/*\"OK\" = \"完成\";*/
+"Please open a directory first." = "請先開啟專案目錄";
