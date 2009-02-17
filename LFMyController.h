@@ -29,10 +29,12 @@
 	NSMutableArray *_backgroundList;
 	NSMutableArray *_displaylist;
 	NSMutableArray *_langArray;
+	NSMutableArray *_notMatchStringList;
 	NSMutableDictionary *_fileDict;
 	NSMutableDictionary *_lprojDict;
 	NSMutableString *_selectedLang;
 	NSMutableString *_selectedDirectory;
+	NSMutableString *_lastComment;
 	NSUserDefaults *_userDefaults;
 	NSString *_currentFile;
 	NSString *_currentDir;

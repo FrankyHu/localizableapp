@@ -17,8 +17,10 @@
 		_backgroundList = [NSMutableArray new];
 		_displaylist = [NSMutableArray new];
 		_langArray = [NSMutableArray new];
+		_notMatchStringList = [NSMutableArray new];
 		_selectedLang = [NSMutableString new];
 		_selectedDirectory = [NSMutableString new];
+		_lastComment = [NSMutableString new];
 		_currentDir = [NSString new];
 		_localizedArray = [NSMutableArray new];
 		_lprojParser = [LFLprojParser new];
@@ -35,10 +37,12 @@
 	[_langArray release];
 	[_displaylist release];
 	[_backgroundList release];
+	[_notMatchStringList release];
 	[_selectedLang release];
 	[_selectedDirectory release];
 	[_localizedArray release];
 	[_lprojParser release];
+	[_lastComment release];
 	[super dealloc];
 }
 
@@ -128,6 +132,7 @@
 		//Parse source code: Read LFLSTR & LFLSTR2 to arrays
 		_sourceCodeParser = [LFSourceCodeParser new];
 		[_sourceCodeParser parse:_selectedDirectory];
+		id x, y;
 		id l = _displaylist;
 		_displaylist = [[_sourceCodeParser Displaylist] retain];
 		[l release];
@@ -137,7 +142,7 @@
 		[_view reloadData];
 		//
 		_fileDict = [NSMutableDictionary dictionary];
-		for (id x in _backgroundList) {
+		for (x in _backgroundList) {
 			NSString *str = [x objectAtIndex:3];
 			[_fileDict setObject:str forKey:str];
 		}
@@ -158,9 +163,9 @@
 		BOOL checked = NO;
 		NSString *yes = [NSString stringWithString:@"YES"];
 		NSString *no = [NSString stringWithString:@"NO"];
-		for (id x in _displaylist) {
+		for (x in _displaylist) {
 			//
-			for (id y in _stringList) {
+			for (y in _stringList) {
 				if ([[x objectAtIndex:0] isEqualToString:[y objectAtIndex:0]]) {
 					[_localizedArray addObject:yes];
 					//Modify _displaylist objAtIndex:1
@@ -173,9 +178,23 @@
 				[x replaceObjectAtIndex:1 withObject:@""];
 				[_localizedArray addObject:no];
 				
+				
 			}
 			checked = NO;
 		}		
+		//Add to _notMatchStringList
+		checked = NO;
+		for (x in _stringList) {
+			for (y in _displaylist) {
+				if ([[x objectAtIndex:0] isEqualToString:[y objectAtIndex:0]]) {
+					checked = YES;
+				}
+			}
+			if (!checked) {
+				[_notMatchStringList addObject:x];
+				checked = NO;
+			}
+		}
 //		NSLog(@"%d",[_localizedArray count]);
 //		NSLog(@"%d",[_displaylist count]);
 //		NSLog(@"%d",[_stringList count]);
@@ -249,6 +268,28 @@
 //				[writer appendString:@"\n"];
 //			}
 			[writer appendString:@"\n"];
+		}
+		[writer appendString:@"\n"];
+		//notMatchStringList
+		
+		if ([_notMatchStringList count] > 0) {
+			[writer appendString:@"/* The strings which is not found in all of the source code */\n"];
+			for (id x in _notMatchStringList) {
+				if (![[x objectAtIndex:2] isEqualToString:_lastComment]) {
+					_lastComment = [x objectAtIndex:2];
+					[writer appendString:@"\n/*"];
+					[writer appendString:_lastComment];
+					[writer appendString:@"*/\n"];
+				}
+				[writer appendString:@"\""];
+				[writer appendString:[x objectAtIndex:0]];
+				[writer appendString:@"\""];
+				[writer appendString:@" = "];
+				[writer appendString:@"\""];
+				[writer appendString:[x objectAtIndex:1]];
+				[writer appendString:@"\";"];
+				[writer appendString:@"\n"];
+			}
 		}
 		[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
 		NSAlert *_alert = [NSAlert alertWithMessageText:LFLSTR(@"Done") defaultButton:LFLSTR(@"OK") alternateButton:nil otherButton:nil informativeTextWithFormat:LFLSTR(@"File saved!")];;
