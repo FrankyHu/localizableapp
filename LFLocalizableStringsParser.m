@@ -13,14 +13,14 @@
 - (void)parse:(NSString *)filePath
 {
 	_stringList = [NSMutableArray new];
-	//BOOL isComment = NO;
+	BOOL isComment = NO;
 	int i = 0, j = 0;
 	int k = 0;
 	NSString *s= [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 	//Scan the Localizabile pair
-//	for (i = i + j + 1; i < [s length]; i++) {	
 	NSMutableString *lastComment = [NSMutableString new];
 	for (i = 0; i < [s length]; i++) {
+		NSLog(@"%d",i);
 		NSMutableArray *array = [NSMutableArray new];
 		NSMutableString *param1 = [NSMutableString string];
 		NSMutableString *param2 = [NSMutableString string];
@@ -28,12 +28,13 @@
 		for (j = i; j < [s length]; j++) {
 			if (j + 2 < [s length]) {
 				if ([[s substringWithRange:NSMakeRange(j, 2)] isEqualToString:@"/*"]) {
-					//isComment = YES;
+					isComment = YES;
 					lastComment = [NSMutableString new];
 					for (k = j + 2; k < [s length]; k++) {
 						if (k + 2 < [s length]) {
 							if ([[s substringWithRange:NSMakeRange(k, 2)] isEqualToString:@"*/"]) {
-								i = j + 2;
+								isComment = NO;
+								i = k + 2;
 								break;
 							}
 							[lastComment appendFormat:@"%C",[s characterAtIndex:k]];
@@ -43,8 +44,8 @@
 			}
 			break;
 		}
-		
-		if ([s characterAtIndex:i] == '"' && [s characterAtIndex:i-1] != '\\') {
+		NSLog(@"%d",i);
+		if ([s characterAtIndex:i] == '"' && [s characterAtIndex:i-1] != '\\' && !isComment) {
 			//First param
 			for (j = i + 1; j < [s length]; j++) {
 				if ([s characterAtIndex:j] == '"' && [s characterAtIndex:j-1] != '\\') {
@@ -70,6 +71,7 @@
 			[array addObject:param1];
 			[array addObject:param2];
 			[array addObject:lastComment];
+			NSLog(@"%@",array);
 			[_stringList addObject:array];
 		}
 	}
