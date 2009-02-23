@@ -20,7 +20,6 @@
 	//Scan the Localizabile pair
 	NSMutableString *lastComment = [NSMutableString new];
 	for (i = 0; i < [s length]; i++) {
-		NSLog(@"%d",i);
 		NSMutableArray *array = [NSMutableArray new];
 		NSMutableString *param1 = [NSMutableString string];
 		NSMutableString *param2 = [NSMutableString string];
@@ -44,7 +43,6 @@
 			}
 			break;
 		}
-		NSLog(@"%d",i);
 		if ([s characterAtIndex:i] == '"' && [s characterAtIndex:i-1] != '\\' && !isComment) {
 			//First param
 			for (j = i + 1; j < [s length]; j++) {
@@ -71,7 +69,6 @@
 			[array addObject:param1];
 			[array addObject:param2];
 			[array addObject:lastComment];
-			NSLog(@"%@",array);
 			[_stringList addObject:array];
 		}
 	}
