@@ -34,7 +34,7 @@
 		return [[_displaylist objectAtIndex:rowIndex] objectAtIndex:3];
 	}
 	else if ( [columnName isEqualToString:@"Status"] ) {
-		if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:4]isEqualToString:@"isRepeat"]) {
+		if ([[[_displaylist objectAtIndex:rowIndex] objectAtIndex:4] isEqualToString:@"isRepeat"]) {
 			return LFLSTR(@"Duplicate");
 		}
 		else {

@@ -136,16 +136,17 @@
 		id l = _displaylist;
 		_displaylist = [[_sourceCodeParser Displaylist] retain];
 		[l release];
-//		l = _backgroundList;
-//		_backgroundList = [[_sourceCodeParser Displaylist] retain];
-//		[l release];
-		[_view reloadData];
 		//
-		_fileDict = [NSMutableDictionary dictionary];
-		for (x in _backgroundList) {
-			NSString *str = [x objectAtIndex:3];
-			[_fileDict setObject:str forKey:str];
-		}
+		l = _backgroundList;
+		_backgroundList = [[_sourceCodeParser Displaylist] retain];
+		[l release];
+		//[_view reloadData];
+		//
+		//_fileDict = [NSMutableDictionary dictionary];
+//		for (x in _backgroundList) {
+//			NSString *str = [x objectAtIndex:3];
+//			[_fileDict setObject:str forKey:str];
+//		}
 		[_sourceCodeParser release];
 		//Parse Localizabe.strings
 		NSMutableString *lprojPath = [NSMutableString new];
@@ -177,28 +178,32 @@
 			if (!checked) {
 				[x replaceObjectAtIndex:1 withObject:@""];
 				[_localizedArray addObject:no];
-				
-				
 			}
 			checked = NO;
 		}		
 		//Add to _notMatchStringList
-		checked = NO;
 		for (x in _stringList) {
+			checked = NO;
 			for (y in _displaylist) {
 				if ([[x objectAtIndex:0] isEqualToString:[y objectAtIndex:0]]) {
 					checked = YES;
+					break;
 				}
 			}
 			if (!checked) {
 				[_notMatchStringList addObject:x];
-				checked = NO;
+				NSMutableArray *col = [NSMutableArray new];
+				[col addObject:[x objectAtIndex:0]];
+				[col addObject:[x objectAtIndex:1]];
+				[col addObject:@""];
+				[col addObject:@"Not exist"];
+				[col addObject:@"notRepeat"];
+				NSLog(@"%@",col);
+				[_displaylist addObject:col];
+				[_localizedArray addObject:no];
 			}
 		}
-//		NSLog(@"%d",[_localizedArray count]);
-//		NSLog(@"%d",[_displaylist count]);
-//		NSLog(@"%d",[_stringList count]);
-		//
+		[_view reloadData];
 		[lprojPath release];
 		[_localizableStringsParser release];
 	}
