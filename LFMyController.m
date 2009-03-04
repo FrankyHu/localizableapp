@@ -79,11 +79,8 @@
 	[_selectedFile appendString:@"/"];
 	[_selectedFile appendString:lprojName];
 	[_selectedFile appendString:@".lproj"];
-	//NSMutableString *writer = [NSMutableString stringWithString:@""];
-	//NSLog(@"%@",writer);
 	NSFileManager *fm = [NSFileManager defaultManager];
 	[fm createDirectoryAtPath:_selectedFile attributes:nil];
-	//[writer writeToFile:_selectedFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
 	//NSAlert *alert = [NSAlert alertWithMessageText:@"Done" defaultButton:@"OK"alternateButton:nil otherButton:nil informativeTextWithFormat:@"Directory %@.lproj created.",lprojName];
 	//[alert runModal];
 	[self addObjectWithName:lprojName];
@@ -262,16 +259,8 @@
 			if (![[x objectAtIndex:2] isEqualToString:@""]) {
 				[writer appendString:@" /* Comment: "];
 				[writer appendString:[x objectAtIndex:2]];
-//				[writer appendString:@" File name: "];
-//				[writer appendString:[x objectAtIndex:3]];
 				[writer appendString:@" */"];
 			}
-//			else {
-//				[writer appendString:@" /* File name: "];
-//				[writer appendString:[x objectAtIndex:3]];
-//				[writer appendString:@" */"];
-//				[writer appendString:@"\n"];
-//			}
 			[writer appendString:@"\n"];
 		}
 		[writer appendString:@"\n"];
